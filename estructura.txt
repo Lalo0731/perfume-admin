@@ -1,0 +1,62 @@
+PERFUME-ADMIN/
+│── node_modules/
+│── src/
+│   │── app.controller.ts
+│   │── app.module.ts   
+│   │── app.service.ts
+│   │── main.ts
+│   │
+│   ├── perfumes/    
+│   │   │── dto/
+│   │   │   │── create.perfume.dto.ts   
+│   │   │   │── update.perfume.dto.ts   
+│   │   │── entities/
+│   │   │   │── perfume.entity.ts   
+│   │   │── perfumes.module.ts
+│   │   │── perfumes.service.spec.ts
+│   │   │── perfumes.service.ts
+│   │   │── perfumes.controller.spec.ts
+│   │   │── perfumes.controller.ts
+│   │
+│   ├── perfumes_accords/    
+│   │   │── dto/
+│   │   │   │── create.perfumes_accord.dto.ts   
+│   │   │   │── update.perfumes_accord.dto.ts   
+│   │   │── entities/
+│   │   │   │── perfumes_accord.entity.ts   
+│   │   │── perfumes_accords.module.ts
+│   │   │── perfumes_accords.service.spec.ts
+│   │   │── perfumes_accords.service.ts
+│   │   │── perfumes_accords.controller.spec.ts
+│   │   │── perfumes_accords.controller.ts
+│   │
+│   ├── perfumes_images/    
+│   │   │── dto/
+│   │   │   │── create.perfumes_image.dto.ts   
+│   │   │   │── update.perfumes_image.dto.ts   
+│   │   │── entities/
+│   │   │   │── perfumes_image.entity.ts   
+│   │   │── perfumes_images.module.ts
+│   │   │── perfumes_images.service.spec.ts
+│   │   │── perfumes_images.service.ts
+│   │   │── perfumes_images.controller.spec.ts
+│   │   │── perfumes_images.controller.ts
+│   │
+│   ├── perfumes_special_for/    
+│   │   │── dto/
+│   │   │   │── create.perfumes_special_for.dto.ts   
+│   │   │   │── update.perfumes_special_for.dto.ts   
+│   │   │── entities/
+│   │   │   │── perfumes_special_for.entity.ts   
+│   │   │── perfumes_special_for.module.ts
+│   │   │── perfumes_special_for.service.spec.ts
+│   │   │── perfumes_special_for.service.ts
+│   │   │── perfumes_special_for.controller.spec.ts
+│   │   │── perfumes_special_for.controller.ts
+│
+│── test/
+│── upload/
+│   │── perfumes/
+│── package.json
+│── tsconfig.json
+│── nest-cli.json
