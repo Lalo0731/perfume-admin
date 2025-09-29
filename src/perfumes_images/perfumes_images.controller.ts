@@ -1,13 +1,13 @@
 import { 
   Controller, Get, Post, Body, Patch, Param, Delete, 
-  UploadedFiles, UseInterceptors 
+  UploadedFiles, UseInterceptors, UploadedFile, Put 
 } from '@nestjs/common';
 import { PerfumesImagesService } from './perfumes_images.service';
 import { CreatePerfumesImageDto } from './dto/create-perfumes_image.dto';
 import { UpdatePerfumesImageDto } from './dto/update-perfumes_image.dto';
-import { FilesInterceptor } from '@nestjs/platform-express';
+import { FilesInterceptor, FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
-import { extname } from 'path';
+import { extname, join } from 'path';
 import type { Express } from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -76,5 +76,36 @@ export class PerfumesImagesController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.perfumesImagesService.remove(+id);
+  }
+
+  @Put(':id/replace')
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: './uploads/perfumes',
+        filename: (req, file, cb) => {
+          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+          cb(null, uniqueSuffix + extname(file.originalname));
+        },
+      }),
+    }),
+  )
+  async replaceImage(
+    @Param('id') id: number,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    const image = await this.perfumesImagesService.findOne(+id);
+
+    if(!image){
+      throw new Error('Imagen no encontrada');
+    }
+
+    const oldPath = join(process.cwd(), 'uploads/perfumes', image.image_url);
+    if(fs.existsSync(oldPath)){
+      fs.unlinkSync(oldPath);
+    }
+
+    image.image_url = file.filename;
+    return this.perfumesImagesService.update(+id, image);
   }
 }

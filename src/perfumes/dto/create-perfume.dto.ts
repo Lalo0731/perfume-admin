@@ -1,6 +1,9 @@
 
-import { IsString, IsNumber, IsOptional, IsEnum, IsBoolean, IsArray } from 'class-validator';
+import { IsString, IsNumber, IsOptional, IsEnum, IsBoolean, IsArray, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
+import { CreatePerfumesImageDto } from 'src/perfumes_images/dto/create-perfumes_image.dto';
+import { CreatePerfumesAccordDto } from 'src/perfumes_accords/dto/create-perfumes_accord.dto';
+import { CreatePerfumesSpecialForDto } from 'src/perfumes_special_for/dto/create-perfumes_special_for.dto';
 
 export class CreatePerfumeDto {
     @IsString()
@@ -43,20 +46,21 @@ export class CreatePerfumeDto {
     @IsBoolean()
     available?: boolean;
 
-    // Relaciones: el frontend enviará arreglos de strings (URLs / textos).
-    // En el service los transformamos a las entidades relacionadas.
     @IsOptional()
     @IsArray()
-    @IsString({ each: true })
-    images?: string[]; // array de urls o nombres de imagen
+    @ValidateNested({ each: true })
+    @Type(() => CreatePerfumesImageDto)
+    images?: CreatePerfumesImageDto[]; 
 
     @IsOptional()
     @IsArray()
-    @IsString({ each: true })
-    accords?: string[]; // ej: ["amaderado","cítrico"]
+    @ValidateNested({ each: true })
+    @Type(() => CreatePerfumesAccordDto)
+    accords?: CreatePerfumesAccordDto[]; 
 
     @IsOptional()
     @IsArray()
-    @IsString({ each: true })
-    specialFor?: string[]; // ej: ["Día","Noche","Primavera"]
-    }
+    @ValidateNested({ each: true })
+    @Type(() => CreatePerfumesSpecialForDto)
+    specialFor?: CreatePerfumesSpecialForDto[]; 
+}

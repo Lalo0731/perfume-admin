@@ -38,12 +38,12 @@ export class Perfume {
     @Column({ default: true })
     available: boolean;
 
-    @OneToMany(() => PerfumesImage, (image) => image.perfume, { cascade: true })
+    @OneToMany(() => PerfumesImage, (image) => image.perfume, { cascade: true, onDelete: 'CASCADE' })
     images: PerfumesImage[];
   
-    @OneToMany(() => PerfumesAccord, (accord) => accord.perfume, { cascade: true })
+    @OneToMany(() => PerfumesAccord, (accord) => accord.perfume, { cascade: true, eager: true, orphanedRowAction: 'delete', onDelete: 'CASCADE' })
     accords: PerfumesAccord[];
   
-    @OneToMany(() => PerfumesSpecialFor, (specialFor) => specialFor.perfume, { cascade: true })
+    @OneToMany(() => PerfumesSpecialFor, (specialFor) => specialFor.perfume, { cascade: true, eager: true, orphanedRowAction: 'delete', onDelete: 'CASCADE' })
     specialFor: PerfumesSpecialFor[];
 }

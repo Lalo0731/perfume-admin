@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Perfume } from 'src/perfumes/entities/perfume.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity('perfumes_images')
 export class PerfumesImage {
@@ -11,5 +12,6 @@ export class PerfumesImage {
   
     @ManyToOne(() => Perfume, (perfume) => perfume.images, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'perfume_id' })
+    @Exclude()
     perfume: Perfume;
 }
