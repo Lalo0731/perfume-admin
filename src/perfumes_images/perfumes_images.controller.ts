@@ -105,7 +105,14 @@ export class PerfumesImagesController {
       fs.unlinkSync(oldPath);
     }
 
-    image.image_url = file.filename;
-    return this.perfumesImagesService.update(+id, image);
+    const newFileName = file.filename;
+    image.image_url = newFileName;
+
+    // image.image_url = file.filename;
+    await this.perfumesImagesService.update(+id, image);
+    return{
+      message: "Imagen reemplazada con éxito",
+      newImageUrl: newFileName,
+    }
   }
 }

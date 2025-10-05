@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { PerfumesService } from './perfumes.service';
 import { CreatePerfumeDto } from './dto/create-perfume.dto';
 import { UpdatePerfumeDto } from './dto/update-perfume.dto';
@@ -13,9 +13,14 @@ export class PerfumesController {
   }
 
   @Get()
-  findAll() {
+  findAll(@Query('category') category?: string, @Query('isNew') isNew?: string) {
+    if (category) return this.perfumesService.findByCategory(category);
+    if (isNew === 'true') return this.perfumesService.findNew();
     return this.perfumesService.findAll();
   }
+  // findAll() {
+  //   return this.perfumesService.findAll();
+  // }
 
   @Get(':id')
   findOne(@Param('id') id: string) {

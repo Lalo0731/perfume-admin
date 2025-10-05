@@ -29,6 +29,7 @@ export class PerfumesService {
   ){}
 
   async create(createPerfumeDto: CreatePerfumeDto): Promise<Perfume> {
+    console.log('Datos recibidos:', createPerfumeDto);
     const { images, accords, specialFor, ...rest} = createPerfumeDto;
 
     const perfume = this.perfumeRepository.create({
@@ -66,6 +67,25 @@ export class PerfumesService {
   async findAll(): Promise<Perfume[]> {
     return this.perfumeRepository.find({
       relations: ['images', 'accords', 'specialFor']
+    });
+  }
+
+  async findByCategory(category: string): Promise<Perfume[]> {
+    const validCategories = ['arabes', 'disenador', 'next'] as const;
+    if (!validCategories.includes(category as any)) {
+      throw new Error(`Categoría inválida: ${category}`);
+    }
+  
+    return this.perfumeRepository.find({
+      where: { category: category as 'arabes' | 'disenador' | 'next' },
+      relations: ['images', 'accords', 'specialFor'],
+    });
+  }
+
+  async findNew(): Promise<Perfume[]> {
+    return this.perfumeRepository.find({
+      where: { isNew: true },
+      relations: ['images', 'accords', 'specialFor'],
     });
   }
 

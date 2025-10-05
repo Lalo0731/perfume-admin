@@ -14,8 +14,8 @@ export class Perfume {
     @Column('text')
     description: string;
 
-    @Column({ type: 'enum', enum: ['arabe', 'diseñador', 'next']})
-    category: 'arabe' | 'diseñador' | 'next';
+    @Column({ type: 'enum', enum: ['arabes', 'disenador', 'next']})
+    category: 'arabes' | 'disenador' | 'next';
 
     @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
     oldPrice: number;
