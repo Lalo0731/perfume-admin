@@ -13,8 +13,8 @@ export class CreatePerfumeDto {
     @IsString()
     description?: string;
 
-    @IsEnum(['arabes','disenador', 'next'])
-    category:'arabes' | 'disenador' | 'next';
+    @IsEnum(['arabes','disenador','next','nicho'])
+    category:'arabes' | 'disenador' | 'next' | 'nicho';
 
     @IsOptional()
     @Type(() => Number)

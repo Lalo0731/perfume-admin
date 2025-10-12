@@ -71,13 +71,13 @@ export class PerfumesService {
   }
 
   async findByCategory(category: string): Promise<Perfume[]> {
-    const validCategories = ['arabes', 'disenador', 'next'] as const;
+    const validCategories = ['arabes', 'disenador', 'next', 'nicho'] as const;
     if (!validCategories.includes(category as any)) {
       throw new Error(`Categoría inválida: ${category}`);
     }
   
     return this.perfumeRepository.find({
-      where: { category: category as 'arabes' | 'disenador' | 'next' },
+      where: { category: category as 'arabes' | 'disenador' | 'next' | 'nicho'},
       relations: ['images', 'accords', 'specialFor'],
     });
   }
